@@ -184,19 +184,37 @@
     </div>
 @section('script')
 <script>
-    $('#full_name').on('change',function()
-    {
-        $('#student_id').val($(this).find(':selected').data('student_id'));
-    });
-</script>
+ // Update the student_id and email fields based on the selected student
+ $(document).ready(function() {
+    // Check if there's an already selected option
+    var selectedOption = $('#full_name').find(':selected');
+    
+    if (selectedOption.length > 0) {
+        var studentId = selectedOption.data('student_id');
+        var email = selectedOption.data('email');
 
-<script>
+        // Set initial values based on the selected option
+        if (studentId !== undefined && email !== undefined) {
+            $('#student_id').val(studentId);
+            $('#email').val(email);
+        }
+    }
+
     // Update the student_id and email fields based on the selected student
     $('#full_name').on('change', function() {
         var selectedOption = $(this).find(':selected');
-        $('#student_id').val(selectedOption.data('student_id'));
-        $('#email').val(selectedOption.data('email'));
+        
+        // Ensure the data attributes are accessed properly
+        var studentId = selectedOption.data('student_id');
+        var email = selectedOption.data('email');
+
+        // Populate the input fields only if data is present
+        if (studentId !== undefined && email !== undefined) {
+            $('#student_id').val(studentId);
+            $('#email').val(email);
+        }
     });
+});
 </script>
 
 @endsection

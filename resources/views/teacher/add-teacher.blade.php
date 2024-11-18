@@ -155,19 +155,37 @@
 </div>
 @section('script')
 <script>
-    // select auto teacher id
-    $('#full_name').on('change',function()
-    {
-        $('#teacher_id').val($(this).find(':selected').data('teacher_id'));
-    });
-</script>
-<script>
-    // Update the teacher_id and email fields based on the selected student
+ // Update the teacher_id and email fields based on the selected teacher
+ $(document).ready(function() {
+    // Check if there's an already selected option
+    var selectedOption = $('#full_name').find(':selected');
+    
+    if (selectedOption.length > 0) {
+        var teacherId = selectedOption.data('teacher_id');
+        var email = selectedOption.data('email');
+
+        // Set initial values based on the selected option
+        if (teacherId !== undefined && email !== undefined) {
+            $('#teacher_id').val(teacherId);
+            $('#email').val(email);
+        }
+    }
+
+    // Update the teacher_id and email fields based on the selected teacher
     $('#full_name').on('change', function() {
         var selectedOption = $(this).find(':selected');
-        $('#teacher_id').val(selectedOption.data('teacher_id'));
-        $('#email').val(selectedOption.data('email'));
+        
+        // Ensure the data attributes are accessed properly
+        var teacherId = selectedOption.data('teacher_id');
+        var email = selectedOption.data('email');
+
+        // Populate the input fields only if data is present
+        if (teacherId !== undefined && email !== undefined) {
+            $('#teacher_id').val(teacherId);
+            $('#email').val(email);
+        }
     });
+});
 </script>
 
 @endsection
