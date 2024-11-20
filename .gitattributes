@@ -1,5 +1,4 @@
 *.blade.php linguist-language=PHP
-
 * text=auto eol=lf
 
 *.blade.php diff=html
